@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kedai Kopi Kami</title>
+
+    <!-- fonts -->
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,700&display=swap"
+      rel="stylesheet"/>
+
+    <!-- Feather Icon-->
+-
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- My style -->
+    <link rel="stylesheet" href="css/style.css" />
+    
+    <!-- Midtrans -->
+    <script type="text/javascript"
+    src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="SB-Mid-client-okrq3YBGZGaoOiRH"></script>
+    
+    <!-- alpineJS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    
+    <!-- app -->
+    <script src="src/app.js" async></script>
+    
+  </head> 
+
+  <body>
+    
+    <!-- Navbar start-->
+    <nav class="navbar" x-data>
+      <a href="#" class="navbar-logo">Kedai Kopi<span>Kami</span></a>
+
+      <div class="navbar-nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <!-- <a href="#menu">Menu</a> -->
+        <a href="#products">Produk</a>
+        <a href="#contact">Kontak</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart-button">
+          <i data-feather="shopping-cart"></i>
+        <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+        </a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+
+      <!-- Search form start -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="search here...">
+        <label for="search-box"><i data-feather="search"></i></label>></label>
+      </div>
+      <!-- Search form end -->
+
+      <!-- Shopping Cart start-->
+      <div class="shopping-cart">
+        <template x-for="(item, index) in $store.cart.items" x-keys="index">
+        <div class="cart-item">
+          <img :src="`img/produk/${item.img}`" :alt="item.name">
+          <div class="item-detail">
+              <h3 x-text="item.name"></h3>
+              <div class="item-price">
+                <span x-text="rupiah(item.price)"></span> &times;
+                <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+                <span x-text="item.quantity"></span>
+                <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+                <span x-text="rupiah(item.total)"></span>
+              </div>
+            </div>
+
+          </div>
+        </template>
+        <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart Is Empty</h4>
+        <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+      
+      <div class="form-container" x-show="$store.cart.items.length">
+        <form action="" id="checkoutForm">
+          <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+          <input type="hidden" name="total" x-model="$store.cart.total">
+          <h5>Customer detail</h5>
+          <label for="name">
+            <span>Name</span>
+            <input type="text" name="name" id="name">
+          </label>
+
+          <label for="email">
+            <span>Email</span>
+            <input type="email" name="email" id="email">
+          </label>
+
+          <label for="phone">
+            <span>Phone</span>
+            <input type="number" name="phone" id="phone" autocapitalize="off">
+          </label>
+
+          <button class="checkout-button disabled" type="submit" id="checkout-button"
+          value="checkout">checkout</button>
+          
+        </form>
+      </div>
+      </div>
+      <!-- Shopping Cart end-->
+
+    </nav>
+    
+    <!-- Navbar end-->
+    <!-- hero section start -->
+    <section class="hero" id="home">
+      <div class="mask-container">
+      <main class="content">
+        <h1>Selamat Datang di Kedai Kopi <span>Kami</span></h1>
+        <p></p>
+        <a href="#products" class="cta">Beli Sekarang</a>
+      </main>
+      </div>
+    </section>
+    <!-- hero section end-->
+
+    <!-- about section start-->
+
+    <section id="about" class="about">
+      <h2><span>Tentang</span>Kami</h2>
+
+      <div class="row">
+        <div class="about-img">
+          <img src="img/halam Tentang kami.jpg" alt="Tentang Kami">
+      </div>
+      <div class="content">
+        <p>Selamat datang di Kedai Kopi Kami, Di balik aroma kopi kami yang menggoda ada sebuah kelompok pecinta kopi yang menyatu Dengan hati dan dedikasi, kami hadir untuk menciptakan pengalaman kopi yang tak tertandingi</p>
+        <p>Mulai dari pemilihan biji terbaik hingga tangan yang penuh dedikasi yang menyiapkan setiap sajian, kami berkomitmen untuk memberikan pengalaman kopi yang tidak hanya memuaskan keinginan, tetapi juga merangsang panca indera Anda</p>
+        <p>Kami bukan hanya tentang kopi, kami adalah kehangatan, kebersamaan, dan keindahan dalam setiap cangkir. Temukan keunikan kami di setiap sudut ruangan dan nikmati perjalanan kopi yang istimewa bersama [Kedai Kopi Kami].</p>
+
+      </div>
+    </section>
+
+    <!-- about section end-->
+
+     <!-- Menu section start -->
+
+   <!-- <section id="menu" class="menu">
+      <h2><span>Menu</span>Kami</h2>
+      <p>"Rasakan kelezatan kopi kami, hasil dari kombinasi biji kopi berkualitas tinggi dan keahlian barista terbaik kami"</p>
+
+      <div class="row">
+        <div class="menu-card">
+          <img src="img/Menu/1.jpg"
+           alt="Espresso" class="menu-card-img">
+           <h3 class="menu-card-title">- 
+            Espresso -</h3>
+            <p class="menu-crad-price">IDR 20K</p>
+        </div>
+
+        <div class="menu-card">
+          <img src="img/menu/1.jpg"
+           alt="Espresso" class="menu-card-img">
+           <h3 class="menu-card-title">- 
+            Espresso -</h3>
+            <p class="menu-crad-price">IDR 20K</p>
+        </div>
+
+        <div class="menu-card">
+          <img src="img/menu/1.jpg"
+           alt="Espresso" class="menu-card-img">
+           <h3 class="menu-card-title">- 
+            Espresso -</h3>
+            <p class="menu-crad-price">IDR 20K</p>
+        </div>
+
+        <div class="menu-card">
+          <img src="img/menu/1.jpg"
+           alt="Espresso" class="menu-card-img">
+           <h3 class="menu-card-title">- 
+            Espresso -</h3>
+            <p class="menu-crad-price">IDR 20K</p>
+        </div>
+        </div>
+      </section> -->
+<!-- menu section end -->
+
+      <!-- produk section start -->
+    <section class="products" id="products" x-data="products">
+      <h2><span>Produk</span> kami</h2>
+    <!-- <p>"lana bau taiiiiiii"</p> -->
+    <h2> <span> Hot/</span>Ice  </h2>
+    <div class="row">
+      <template x-for="(item, index) in items" x-key="index">
+      <div class="product-card">
+        <div class="product-icons">
+          <a href="#" @click.prevent="$store.cart.add(item)">
+            <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          </a>
+          <a href="#" @click.prevent="$store.eye.click(item)" class="item-detail-button">
+            <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+          </svg></a>
+        </div>
+        <div class="product-image">
+          <img :src="`img/produk/${item.img}`" :alt="item.name">
+        </div>
+        <div class="product-content">
+          <h3 x-text="item.name"></h3>
+          <div class="product-stars">
+            <svg
+            width="24"
+            height="24"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          > 
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+            <svg
+            width="24"
+            height="24"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          > 
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+            <svg
+            width="24"
+            height="24"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          > 
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+            <svg
+            width="24"
+            height="24"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          > 
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+            <svg
+            width="24"
+            height="24"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          > 
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          </div>
+          <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
+        </div>
+      </template>
+      </div>
+    </section>
+     <!-- produk section end -->
+
+    <!-- contact section start -->
+
+    <section id="contact" class="contact">
+      <h2><span>Kontak</span> Kami</h2>
+      <p>"Tidak perlu sungkan! Kami ada di sini untuk Anda. Hubungi kami untuk semua pertanyaan, permintaan, atau sekadar obrolan santai seputar kopi."</p>
+
+      <div class="row">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31865.821546779724!2d114.55380311083984!3d-3.293701499999991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de42330867ab8e5%3A0x846c9baf7c5f33c5!2sKedai%20Kopi%20Kami!5e0!3m2!1sid!2sid!4v1701659940923!5m2!1sid!2sid"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
+
+        <form action="">
+          <div class="input-group">
+            <i data-feather="user"></i>
+            <input type="text" placeholder="nama">
+          </div>
+          <div class="input-group">
+            <i data-feather="mail"></i>
+            <input type="text" placeholder="email">
+          </div>
+          <div class="input-group">
+            <i data-feather="phone"></i>
+            <input type="text" placeholder="no hp">
+          </div>
+          <button type="submit" class="btn">kirim pesan</button>
+        </form>
+      </div>
+    </section>
+    <!-- contact section end -->
+
+    <!-- Footer start-->
+    <footer>
+      <div class="socials">
+        <a href="https://instagram.com/kedai_kopi_kami?igshid=NGVhN2U2NjQ0Yg=="><i data-feather="instagram"></i></a>
+        <a href="#"><i data-feather="twitter"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61554082838130&mibextid=ZbWKwL"><i data-feather="facebook"></i></a>
+      </div>
+
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Kontak</a>
+      </div>
+
+      <div class="credit">
+        <p>Create by <a href="">Rifki, Jaini, Huda, Maulana</a>. | &copy; 2023</p>
+      </div>
+    </footer>
+    <!-- Footer end-->
+
+    <!-- Modal Box Item Detail Start -->
+    <div class="modal" id="item-detail-modal">
+      <template x-for="(item, index) in items" x-key="eye">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="product-image">
+          <img :src="`img/produk/${item.img}`" :alt="item.name">
+        </div>
+        <div class="product-content">
+          <h3 x-text="item.name"></h3>
+          <div class="product-stars">
+            <div class="product-price">IDR 15k <span>IDR 20k</span></div>
+            <a href="#"><i data-feather="shopping-card"></i> <span>add to cart</span></a>
+          </div>
+        </div>
+      </div>
+      </template>
+    </div>
+    <!-- Modal Box Item Detail End -->
+
+    <!-- Feather Icons -->
+      <script> 
+      feather.replace();
+     </script> 
+
+    <!-- My Javascript -->
+    <script src="js/bebas.js"></script>
+  </body>
+
+</html>
